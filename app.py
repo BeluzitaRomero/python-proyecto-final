@@ -2,7 +2,6 @@ import json
 from os import getcwd
 
 ruta = getcwd()
-
 user = {}
 state = {}
 users_list = []
@@ -64,6 +63,7 @@ def update_json(element):
 
     json_content = get_json()
     json_content.append(element)
+
     with open(ruta + "/primera-entrega.json", "w") as file:
         file.write(json.dumps(json_content))
     
@@ -72,14 +72,14 @@ def save_user(user):
     
     if not file_exists():
         with open(ruta + "/primera-entrega.json" , "w") as f:
-            users_list.append(user)
-            f.write(json.dumps(users_list))
+            # users_list.append(user)
+            f.write(json.dumps([user]))
     else:
-        print("va al update")
         update_json(user)
     
-
-# register()
-# print(get_user(user))
-# save_user(user)
+# Descomentar todas para registro, guardado y login
+# Dejar solo login para solo probar probar con todos los usuarios registrados
+register()
+print(get_user(user))
+save_user(user)
 print(login(user))
