@@ -1,6 +1,6 @@
-# 1ra pre-entrega
 import json
 from os import getcwd
+
 ruta = getcwd()
 
 user = {}
@@ -8,14 +8,22 @@ state = {}
 users_list = []
 
 def register():
-    username = input("Resgistre su nombre de usuario: ")
-    password = input("Registre su contraseña: ")
-    # user["usuario"] = username
-    # user["password"] = password
+    username = input("Resgistre su nombre de usuario: ").strip()
+    password = input("Registre su contraseña: ").strip()
+    
+    while len(username) < 3:
+        print("El nombre de suario debe tener al menos 3 caracteres")
+        username = input("Resgistre su nombre de usuario: ").strip()
+        
+
+    while len(password) < 3:
+        print("La contraseña deben tener al menos 3 caracteres")
+        password = input("Registre su contraseña: ").strip()
+
     user[username] = password
    
 
-def getUser(user_db):
+def get_user(user_db):
     return user_db
 
 
@@ -34,43 +42,41 @@ def login(user):
             
     return state
 
+def file_exists():
+    from os.path import exists
+    file_exists = exists(ruta +"/primera-entrega.json" )
+    return file_exists
 
-def getJson():
+def get_json():
+    if file_exists():
+        f = open(ruta + "/primera-entrega.json", "r")
+        json_content = f.read()
+        json_parse = json.loads(json_content)
+        f.close()
+        return json_parse
+    else: return []
 
-    f = open(ruta + "/primera-entrega.json", "r")
-    json_content = f.read()
-    json_parse = json.loads(json_content)
-    f.close()
-    return json_parse
 
 def update_json(element):
 
-    json_content = getJson()
+    json_content = get_json()
     json_content.append(element)
     with open(ruta + "/primera-entrega.json", "w") as file:
         file.write(json.dumps(json_content))
     
 
-def saveUser(user):
-    import json
-    from os import getcwd
-
-    content = getJson()
-
-    if state["success"] == False:
-        return print("No se puede guardar usuarios incorrectos")
+def save_user(user):
     
-    elif len(content) == 0:
-        ruta = getcwd()
+    if not file_exists():
         with open(ruta + "/primera-entrega.json" , "w") as f:
-            userDB = getUser(user)
-            users_list.append(userDB)
+            users_list.append(user)
             f.write(json.dumps(users_list))
     else:
+        print("va al update")
         update_json(user)
     
 
 register()
-print(getUser(user))
+print(get_user(user))
+save_user(user)
 print(login(user))
-saveUser(user)
