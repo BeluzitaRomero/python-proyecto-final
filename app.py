@@ -26,8 +26,8 @@ def get_user(user_db):
 
 
 def login(user):
-    username =input("Ingrese nombre de usuario registrado: ")
-    password = input("Ingrese su contraseña registrada: ")
+    username =input("Ingrese nombre de usuario registrado: ").strip()
+    password = input("Ingrese su contraseña registrada: ").strip()
 
     content = get_json()
     
