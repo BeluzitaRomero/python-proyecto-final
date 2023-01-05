@@ -30,15 +30,18 @@ def get_user(user_db):
 def login(user):
     username =input("Ingrese nombre de usuario registrado: ")
     password = input("Ingrese su contraseña registrada: ")
+
+    content = get_json()
     
-    for key, value in user.items():
-        if key == username and value == password:
-            state["success"] = True
-            state["message"] = "Login exitoso"
-            
-        else: 
-            state["success"] = False
-            state["message"] = "Usuario y/o contraseña incorrectos"
+    for user in content:
+        
+        for key, value in user.items():
+            if  key == username and value == password:
+                state["success"] = True
+                state["message"] = "Login exitoso"
+            else: 
+                state["success"] = False
+                state["message"] = "Usuario y/o contraseña incorrectos"
             
     return state
 
@@ -76,7 +79,7 @@ def save_user(user):
         update_json(user)
     
 
-register()
-print(get_user(user))
-save_user(user)
+# register()
+# print(get_user(user))
+# save_user(user)
 print(login(user))
