@@ -20,10 +20,8 @@ def register():
 
     user[username] = password
    
-
 def get_user(user_db):
     return user_db
-
 
 def login(user):
     username =input("Ingrese nombre de usuario registrado: ").strip()
@@ -32,15 +30,13 @@ def login(user):
     content = get_json()
     
     for user in content:
-        
         for key, value in user.items():
             if  key == username and value == password:
                 state["success"] = True
                 state["message"] = "Login exitoso"
             else: 
                 state["success"] = False
-                state["message"] = "Usuario y/o contraseña incorrectos"
-            
+                state["message"] = "Usuario y/o contraseña incorrectos"            
     return state
 
 def file_exists():
@@ -78,6 +74,6 @@ def save_user(user):
 # Descomentar todas para registro, guardado y login
 # Dejar solo login para solo probar probar con todos los usuarios registrados
 register()
-print(get_user(user))
+# print(get_user(user))
 save_user(user)
 print(login(user))
