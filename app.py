@@ -4,7 +4,6 @@ from os import getcwd
 ruta = getcwd()
 user = {}
 state = {}
-users_list = []
 
 def register():
     username = input("Resgistre su nombre de usuario: ").strip()
@@ -72,7 +71,6 @@ def save_user(user):
     
     if not file_exists():
         with open(ruta + "/primera-entrega.json" , "w") as f:
-            # users_list.append(user)
             f.write(json.dumps([user]))
     else:
         update_json(user)
